@@ -58,7 +58,8 @@ Here, we are not considering the scenario where a resident's pre-test probabilit
 
 The incubation period of COVID-19 has been modeled by several groups and a meta-analysis pooled 8 studies to estimate a lognormal distribution of the incubation period [@mcaloonIncubation2020] with mu 1.63 (1.51, 1.75), sigma 0.5 (0.45-0.55).
 
-```{r}
+```{r, fig.width=8, fig.height=4}
+
 plot(incubation$x, incubation$y, 
      xlab="Days after exposure", 
      ylab="Proportion becoming symptomatic", 
@@ -68,7 +69,8 @@ lines(incubation$x, incubation$y)
 
 First ignoring asymptomatic individuals, we can calculate the daily pre-test probability for those who do not develop symptoms.
 
-```{r}
+```{r, fig.width=8, fig.height=4}
+
 prop_sympt_by <- function(t, dist=incubation) {
   pracma::trapz(0:t, dist$y[1:(t+1)])
 }
@@ -78,9 +80,11 @@ plot(0:14, sapply(0:14, prop_sympt_by),
      xlab = "Day since exposure",
      main="Infected expected to have developed symptoms")
 ```
+
 The proportion of cases that are asymptomatic will vary depending on patient population. Further, the empirical data may be limited by undetected cases in ecological studies. With respect to nursing home residents, a meta-analysis found that 27.9% remained asymptomatic through follow up [@yanes-laneProportion2020].
 
-```{r}
+```{r, fig.width=8, fig.height=4}
+
 plot(incubation$x, adjust_pretest(0.13, incubation, 0.278), 
      ylab="Pre-test probability", xlab="Day")
 lines(incubation$x, adjust_pretest(0.13, incubation, 0.278))
@@ -90,7 +94,8 @@ lines(incubation$x, adjust_pretest(0.13, incubation, 0.278))
 
 To account for the changing sensitivity of the PCR COVID-19 test, we used the PCR sensitivity values from a model derived from empirical data in a meta-analysis [@kucirkaVariation2020], as reported at [https://github.com/HopkinsIDD/covidRTPCR].
 
-```{r}
+```{r, fig.width=8, fig.height=4}
+
 plot(sens$point, ylim=c(0,1),
      main="PCR Sensitivity with 95% CI",
      xlab="Sensitivity", ylab="Days since exposure",
@@ -105,7 +110,8 @@ Post-test probability can be calculated from the estimated pre-test probability 
 
 Below, we demonstrate the post-test probabilities on an example person with a 13% pretest probability at exposure and assuming 27.8% of patients in this setting remain asymptomatic.
 
-```{r}
+```{r, fig.width=8, fig.height=4}
+
 example <- posttest_series(0.13, incubation, 
                            0.278, sens$point, 1)
 example_upper <- posttest_series(0.13, incubation, 
@@ -135,7 +141,7 @@ The relevant risk in deciding whether to maintain heightened precautions on a un
 
 Below, we determine the post-test probability of any person having undetected COVID-19 by day, if all people were tested on the same day. Note again that the x-axis reflects the date of testing.
 
-```{r}
+```{r, fig.width=8, fig.height=4}
 
 unit_size <- 4
 
@@ -158,7 +164,7 @@ abline(v=example$x[example[,2]==min(example$y)])
 
 In the above example, testing on day 9 yields the lowest overall post-test probability; it is the minimum. If we specify the date of testing, we can calculate and plot the change in estimated probability over time, with dates prior to testing reflecting pre-test probability on that day and dates after testing reflecting post-test probability, again assuming no one develops symptoms.
 
-```{r}
+```{r, fig.width=8, fig.height=4}
 
 test <- individual_probability(test_day = 9, pre0 = 0.13, sens = sens, spec = 1, 
                                incubation = incubation, asymp = 0.278)
@@ -173,7 +179,7 @@ lines(test$upper, type="l", col="grey")
 
 Now, using the above example, we assume there were 10 exposures and calculate the unit-wide probability of an undetected COVID-19 infection over time, again assuming all were tested on day 9.
 
-```{r}
+```{r, fig.width=8, fig.height=4}
 
 test_n <- unit_probability(test_day = 9, pre0 =  0.13, sens = sens, spec = 1, 
                            incubation = incubation, asympt = 0.278, n = 10)
@@ -186,6 +192,7 @@ lines(test_n$lower, type="l", col="grey")
 lines(test_n$upper, type="l", col="grey")
 
 ```
+
 In this example, testing on day 9 reveals a unit-wide post-test probability of 10.7% on day 9 and 9.1% on day 14. Using the upper 95% confidence interval for test sensitivity, a conservative approach, and testing on day 9, the unit-wide estimate is 15.6% on day 9 and 13.3% on day 14.
 
 ## Discussion

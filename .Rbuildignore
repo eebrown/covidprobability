@@ -5,3 +5,7 @@
 ^doc$
 ^Meta$
 notgit
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$
