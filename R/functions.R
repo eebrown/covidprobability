@@ -149,14 +149,9 @@ individual_probability <- function(test_day, pre0, sens, spec, incubation,
   after_series_upper <- rep(posttest_day_upper, 14-test_day)
   after_series_lower <- rep(posttest_day_lower, 14-test_day)
 
-  # additional proportion expected to have developed symptoms by this day
-  prop_sympt_by <- function(t, dist=incubation) {
-    pracma::trapz(0:t, dist$y[1:(t+1)])
-  }
-
-  additional_symptomatic <- c(sapply(0:14, prop_sympt_by), NA) -
-                            c(NA, sapply(0:14, prop_sympt_by))
-  additional_symptomatic <- additional_symptomatic[(test_day+1):14]
+  additional_symptomatic <- c(sapply(0:14, prop_remaining, incubation, asympt), NA) -
+    c(NA, sapply(0:14, prop_remaining, incubation, asympt))
+  additional_symptomatic <- additional_symptomatic[(test_day+1):14] * -1
 
   after_series <- after_series -
                    (after_series * cumsum(additional_symptomatic))
