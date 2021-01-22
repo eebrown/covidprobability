@@ -2,11 +2,15 @@ Package: covidprobability
 Title: Estimate the Unit-Wide Probability of COVID-19
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Eric",
+    c(person(given = "Eric",
            family = "Brown",
            role = c("aut", "cre"),
            email = "eb@ericebrown.com",
-           comment = c(ORCID = "0000-0002-1575-2606"))
+           comment = c(ORCID = "0000-0002-1575-2606")),
+      person(given = "Wei",
+           family = "Wang",
+           role = c("ctb"))
+      )
 Description: What the package does (one paragraph).
 License: GPL-3
 Encoding: UTF-8
