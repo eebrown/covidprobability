@@ -1,8 +1,8 @@
 ---
-title: "unit-example"
+title: "Probability of Undetected COVID-19 on a Unit"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{unit-example}
+  %\VignetteIndexEntry{Probability of Undetected COVID-19 on a Unit}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -62,7 +62,7 @@ The incubation period of COVID-19 has been modeled by several groups and a meta-
 
 plot(incubation$x, incubation$y, 
      xlab="Days after exposure", 
-     ylab="Proportion becoming symptomatic", 
+     ylab="Probability", 
      main="Incubation period")
 lines(incubation$x, incubation$y)
 ```
@@ -77,7 +77,7 @@ prop_sympt_by <- function(t, dist=incubation) {
 
 plot(0:14, sapply(0:14, prop_sympt_by),
      ylab="Proportion", 
-     xlab = "Day since exposure",
+     xlab = "Days since exposure",
      main="Infected expected to have developed symptoms")
 ```
 
@@ -85,9 +85,9 @@ The proportion of cases that are asymptomatic will vary depending on patient pop
 
 ```{r, fig.width=8, fig.height=4}
 
-plot(incubation$x, adjust_pretest(0.13, incubation, 0.278), 
+plot(incubation$x, adjust_pretest(0.13, incubation, 0.279), 
      ylab="Pre-test probability", xlab="Day")
-lines(incubation$x, adjust_pretest(0.13, incubation, 0.278))
+lines(incubation$x, adjust_pretest(0.13, incubation, 0.279))
 ```
 
 ### Sensitivity
@@ -98,7 +98,7 @@ To account for the changing sensitivity of the PCR COVID-19 test, we used the PC
 
 plot(sens$point, ylim=c(0,1),
      main="PCR Sensitivity with 95% CI",
-     xlab="Sensitivity", ylab="Days since exposure",
+     xlab="Days since exposure", ylab="Sensitivity",
      type="l"); 
 lines(sens$lower, col="grey")
 lines(sens$upper, col="grey")
@@ -113,11 +113,11 @@ Below, we demonstrate the post-test probabilities on an example person with a 13
 ```{r, fig.width=8, fig.height=4}
 
 example <- posttest_series(0.13, incubation, 
-                           0.278, sens$point, 1)
+                           0.279, sens$point, 1)
 example_upper <- posttest_series(0.13, incubation, 
-                                 0.278, sens$upper, 1)
+                                 0.279, sens$upper, 1)
 example_lower <- posttest_series(0.13, incubation, 
-                                 0.278, sens$lower, 1)
+                                 0.279, sens$lower, 1)
 
 plot(example$x, example$y, 
      xlab="Day of testing", 
@@ -131,7 +131,7 @@ lines(example_lower$x, example_lower$y,
       col="lightblue", type="l")
 lines(example_upper$x, example_upper$y, 
       col="lightblue", type="l")
-lines(incubation$x, adjust_pretest(0.13, incubation, 0.278), 
+lines(incubation$x, adjust_pretest(0.13, incubation, 0.279), 
       col="red", type="l")
 ```
 
@@ -167,7 +167,7 @@ In the above example, testing on day 9 yields the lowest overall post-test proba
 ```{r, fig.width=8, fig.height=4}
 
 test <- individual_probability(test_day = 9, pre0 = 0.13, sens = sens, spec = 1, 
-                               incubation = incubation, asymp = 0.278)
+                               incubation = incubation, asymp = 0.279)
 
 plot(1:14, test$point, type="l", ylim=c(0,0.3),
      main = "Individual probabiltiy of undetected COVID-19",
@@ -182,7 +182,7 @@ Now, using the above example, we assume there were 10 exposures and calculate th
 ```{r, fig.width=8, fig.height=4}
 
 test_n <- unit_probability(test_day = 9, pre0 =  0.13, sens = sens, spec = 1, 
-                           incubation = incubation, asympt = 0.278, n = 10)
+                           incubation = incubation, asympt = 0.279, n = 10)
 
 plot(1:14, test_n$point, type="l", ylim=c(0,1),
      main = "Unit-wide probabiltiy of undetected COVID-19",
