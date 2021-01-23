@@ -4,7 +4,7 @@
 \alias{individual_probability}
 \title{Calculate a time series of probability for an individual following exposure}
 \usage{
-individual_probability(test_day, pre0, sens, spec, incubation, asympt)
+individual_probability(test_day, pre0, sens, spec, asympt, days, mu, sigma)
 }
 \arguments{
 \item{test_day}{Day of PCR test (days since exposure)}
@@ -15,12 +15,17 @@ individual_probability(test_day, pre0, sens, spec, incubation, asympt)
 
 \item{spec}{The specificity of the PCR test}
 
-\item{incubation}{The distribution of incubation period (days to symptom
-onset) of the format
-\code{data.frame(x = 0:21, y = dlnorm(c(0:21), 1.63, 0.5))}}
-
 \item{asympt}{The proportion of infected patients expected to remain
 asymptomatic throughout the course of infection}
+
+\item{days}{The range of days (e.g. 0:14)}
+
+\item{mu}{The mean of a lognormal distribution that approximates the
+incubation period for COVID-19. E.g. 1.63 (see reference).}
+
+\item{sigma}{The standard deviation of a lognormal distribution that
+approximates the incubation period for COVID-19. E.g. 0.5
+(see reference).}
 }
 \value{
 The probability of an event with the specified probability, after n

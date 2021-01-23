@@ -27,16 +27,3 @@
 "sens"
 
 
-#' COVID-19 incubation period distribution
-#'
-#' \code{incubation <- data.frame(x = 0:21,y = dlnorm(c(0:21), 1.63, 0.5))}
-#'
-#' @format A data frame with 22 rows and 2 variables:
-#' \describe{
-#'   \item{x}{days since exposure}
-#'   \item{y}{probability of symptoms emerging on this day}
-#' }
-#' @source \url{https://bmjopen.bmj.com/content/10/8/e039652}
-"incubation"
-
-

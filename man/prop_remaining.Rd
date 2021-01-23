@@ -4,21 +4,32 @@
 \alias{prop_remaining}
 \title{The remaining individuals who would not be expected to show symptoms yet}
 \usage{
-prop_remaining(t, incubation, asympt)
+prop_remaining(t, asympt, mu = 1.63, sigma = 0.5)
 }
 \arguments{
 \item{t}{day}
 
-\item{incubation}{The distribution of incubation period (days to symptom
-onset) of the format
-\code{data.frame(x = 0:21, y = dlnorm(c(0:21), 1.63, 0.5))}}
-
 \item{asympt}{The proportion of positive patients who would be expected not
 to ever develop symptoms (true asymptomatic patients).}
+
+\item{mu}{The mean of a lognormal distribution that approximates the
+incubation period for COVID-19. E.g. 1.63 (see reference).}
+
+\item{sigma}{The standard deviation of a lognormal distribution that
+approximates the incubation period for COVID-19. E.g. 0.5
+(see reference).}
 }
 \value{
 Proportion who would not be expected to show symptoms yet
 }
 \description{
-The remaining individuals who would not be expected to show symptoms yet
+Every day, a certain number of people are expected to show symptoms, based
+on the incubation period. This would typically lead to further investigation
+and ongoing suspicion of an outbreak. This function calculates the proportion
+of individuals on a given day that would not be expected to have developed
+symptoms yet. So if no one has developed symptoms, this proportion of people
+could still have undetected COVID-19.
+}
+\references{
+See McAloon et al. \url{https://bmjopen.bmj.com/content/10/8/e039652}
 }

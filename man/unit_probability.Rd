@@ -4,7 +4,7 @@
 \alias{unit_probability}
 \title{Calculate a time series of unit-wide probability following exposure}
 \usage{
-unit_probability(test_day, pre0, sens, spec, incubation, asympt, n)
+unit_probability(test_day, pre0, sens, spec, asympt, days, mu, sigma, n)
 }
 \arguments{
 \item{test_day}{Day of PCR test (days since exposure)}
@@ -15,12 +15,17 @@ unit_probability(test_day, pre0, sens, spec, incubation, asympt, n)
 
 \item{spec}{The specificity of the PCR test}
 
-\item{incubation}{The distribution of incubation period (days to symptom
-onset) of the format
-\code{data.frame(x = 0:21, y = dlnorm(c(0:21), 1.63, 0.5))}}
-
 \item{asympt}{The proportion of infected patients expected to remain
 asymptomatic throughout the course of infection}
+
+\item{days}{The range of days (e.g. 0:14)}
+
+\item{mu}{The mean of a lognormal distribution that approximates the
+incubation period for COVID-19. E.g. 1.63 (see reference).}
+
+\item{sigma}{The standard deviation of a lognormal distribution that
+approximates the incubation period for COVID-19. E.g. 0.5
+(see reference).}
 
 \item{n}{Number of exposed individuals}
 }

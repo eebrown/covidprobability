@@ -4,23 +4,31 @@
 \alias{adjust_pretest}
 \title{Calculate pretest probability change over time}
 \usage{
-adjust_pretest(pretest, incubation, asympt)
+adjust_pretest(pre0, asympt, days = 0:14, mu = 1.63, sigma = 0.5)
 }
 \arguments{
-\item{pretest}{Pretest probability (time series)}
-
-\item{incubation}{The distribution of incubation period (days to symptom
-onset) of the format
-\code{data.frame(x = 0:21, y = dlnorm(c(0:21), 1.63, 0.5))}}
+\item{pre0}{Initial pretest probability (on day of exposure)}
 
 \item{asympt}{The proportion of positive patients who would be expected not
 to ever develop symptoms (true asymptomatic patients).}
+
+\item{days}{The range of days (e.g. 0:14)}
+
+\item{mu}{The mean of a lognormal distribution that approximates the
+incubation period for COVID-19. E.g. 1.63 (see reference).}
+
+\item{sigma}{The standard deviation of a lognormal distribution that
+approximates the incubation period for COVID-19. E.g. 0.5
+(see reference).}
 }
 \value{
-posttest probability
+pretest probability by day (time series)
 }
 \description{
 Calculates the pretest probability over time, assuming the individual does
 not develop symptoms, by taking into account the distribution of incubation
 periods (defined as the time from exposure to symptom onset).
+}
+\references{
+See McAloon et al. \url{https://bmjopen.bmj.com/content/10/8/e039652}
 }

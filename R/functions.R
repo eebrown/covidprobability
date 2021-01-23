@@ -1,25 +1,32 @@
 
 #' The remaining individuals who would not be expected to show symptoms yet
 #'
-#'
+#' Every day, a certain number of people are expected to show symptoms, based
+#' on the incubation period. This would typically lead to further investigation
+#' and ongoing suspicion of an outbreak. This function calculates the proportion
+#' of individuals on a given day that would not be expected to have developed
+#' symptoms yet. So if no one has developed symptoms, this proportion of people
+#' could still have undetected COVID-19.
 #'
 #' @param t day
-#' @param incubation The distribution of incubation period (days to symptom
-#'                   onset) of the format
-#'                   \code{data.frame(x = 0:21, y = dlnorm(c(0:21), 1.63, 0.5))}
 #' @param asympt The proportion of positive patients who would be expected not
 #'               to ever develop symptoms (true asymptomatic patients).
+#' @param mu The mean of a lognormal distribution that approximates the
+#'           incubation period for COVID-19. E.g. 1.63 (see reference).
+#' @param sigma The standard deviation of a lognormal distribution that
+#'              approximates the incubation period for COVID-19. E.g. 0.5
+#'              (see reference).
 #'
 #' @return Proportion who would not be expected to show symptoms yet
+#' @references See McAloon et al. <https://bmjopen.bmj.com/content/10/8/e039652>
 #' @export
 #'
-prop_remaining <- function(t, incubation, asympt) {
+prop_remaining <- function(t, asympt, mu = 1.63, sigma = 0.5) {
   potential_sympt <- 1 - asympt
-  prop_sympt_by <- pracma::trapz(0:t, incubation$y[1:(t+1)])
+  prop_sympt_by <- stats::plnorm(t, mu, sigma)
   prop <- (potential_sympt - (potential_sympt * prop_sympt_by)) + asympt
   return(prop)
 }
-
 
 
 #' Calculate pretest probability change over time
@@ -28,18 +35,23 @@ prop_remaining <- function(t, incubation, asympt) {
 #' not develop symptoms, by taking into account the distribution of incubation
 #' periods (defined as the time from exposure to symptom onset).
 #'
-#' @param pretest Pretest probability (time series)
-#' @param incubation The distribution of incubation period (days to symptom
-#'                   onset) of the format
-#'                   \code{data.frame(x = 0:21, y = dlnorm(c(0:21), 1.63, 0.5))}
+#' @param pre0 Initial pretest probability (on day of exposure)
 #' @param asympt The proportion of positive patients who would be expected not
 #'               to ever develop symptoms (true asymptomatic patients).
+#' @param days The range of days (e.g. 0:14)
+#' @param mu The mean of a lognormal distribution that approximates the
+#'           incubation period for COVID-19. E.g. 1.63 (see reference).
+#' @param sigma The standard deviation of a lognormal distribution that
+#'              approximates the incubation period for COVID-19. E.g. 0.5
+#'              (see reference).
 #'
-#' @return posttest probability
+#' @return pretest probability by day (time series)
+#' @references See McAloon et al. <https://bmjopen.bmj.com/content/10/8/e039652>
 #' @export
 #'
-adjust_pretest <- function(pretest, incubation, asympt) {
-  return(pretest * sapply(incubation$x, prop_remaining, incubation, asympt))
+adjust_pretest <- function(pre0, asympt, days = 0:14,
+                           mu = 1.63, sigma = 0.5) {
+  return(pre0 * sapply(days, prop_remaining, asympt, mu, sigma))
 }
 
 
@@ -75,21 +87,28 @@ calc_postest_prob <- function(pretest_prob, sens, spec) {
 #' were done each day and assumes testing was only done once.
 #'
 #' @param pre0 The pretest probability on day 0 (at exposure)
-#' @param incubation The distribution of incubation period (days to symptom
-#'                   onset) of the format
-#'                   \code{data.frame(x = 0:21, y = dlnorm(c(0:21), 1.63, 0.5))}
 #' @param asympt The proportion of infected patients expected to remain
 #'               asymptomatic throughout the course of infection
+#' @param days The range of days (e.g. 0:14)
+#' @param mu The mean of a lognormal distribution that approximates the
+#'           incubation period for COVID-19. E.g. 1.63 (see reference).
+#' @param sigma The standard deviation of a lognormal distribution that
+#'              approximates the incubation period for COVID-19. E.g. 0.5
+#'              (see reference).
 #' @param sens A vector of sensitivities by day since exposure
 #' @param spec The test specificity
 #'
 #' @return A vector of posttest probabilities
 #' @export
 #'
-posttest_series <- function(pre0, incubation, asympt, sens, spec) {
-  pretest <- adjust_pretest(pre0, incubation, asympt)
-  posttest <- data.frame(x=incubation$x, y=rep(NA, length(incubation$x)))
-  for (t in 0:(length(incubation$x))) {
+posttest_series <- function(pre0, asympt, days = 0:14, mu = 1.63, sigma = 0.5,
+                            sens, spec) {
+  pretest <- adjust_pretest(pre0 = pre0, asympt = asympt,
+                            days = days, mu = mu, sigma = sigma)
+
+  posttest <- data.frame(x=days, y=rep(NA, length(days)))
+
+  for (t in seq_along(days)) {
     posttest$y[t] <- calc_postest_prob(pretest[t], sens[t], spec)
   }
   return(posttest)
@@ -124,34 +143,42 @@ probability_any <- function(n, p) {
 #' @param pre0 Pre-test probability of person on day of exposure
 #' @param sens A vector of sensitivities by day since exposure
 #' @param spec The specificity of the PCR test
-#' @param incubation The distribution of incubation period (days to symptom
-#'                   onset) of the format
-#'                   \code{data.frame(x = 0:21, y = dlnorm(c(0:21), 1.63, 0.5))}
 #' @param asympt The proportion of infected patients expected to remain
 #'               asymptomatic throughout the course of infection
+#' @param days The range of days (e.g. 0:14)
+#' @param mu The mean of a lognormal distribution that approximates the
+#'           incubation period for COVID-19. E.g. 1.63 (see reference).
+#' @param sigma The standard deviation of a lognormal distribution that
+#'              approximates the incubation period for COVID-19. E.g. 0.5
+#'              (see reference).
 #' @return The probability of an event with the specified probability, after n
 #'         repetitions
 #' @export
-individual_probability <- function(test_day, pre0, sens, spec, incubation,
-                                   asympt) {
+individual_probability <- function(test_day, pre0, sens, spec,
+                                   asympt, days, mu, sigma) {
 
-  pretest_series <- adjust_pretest(pre0, incubation, asympt)[1:(test_day-1)]
+  pretest_series <- adjust_pretest(pre0, asympt,
+                                   days, mu, sigma)[1:(test_day-1)]
 
-  posttest <- posttest_series(pre0, incubation, asympt, sens$point, spec)
-  posttest_upper <- posttest_series(pre0, incubation, asympt, sens$upper, spec)
-  posttest_lower <- posttest_series(pre0, incubation, asympt, sens$lower, spec)
+  posttest <- posttest_series(pre0, asympt, days, mu, sigma, sens$point, spec)
+  posttest_upper <- posttest_series(pre0, asympt, days,
+                                    mu, sigma, sens$upper, spec)
+  posttest_lower <- posttest_series(pre0, asympt, days,
+                                    mu, sigma, sens$lower, spec)
 
   posttest_day <- posttest$y[test_day]
   posttest_day_upper <- posttest_upper$y[test_day]
   posttest_day_lower <- posttest_lower$y[test_day]
 
-  after_series <- rep(posttest_day, 14-test_day)
-  after_series_upper <- rep(posttest_day_upper, 14-test_day)
-  after_series_lower <- rep(posttest_day_lower, 14-test_day)
+  after_series <- rep(posttest_day, utils::tail(days, 1)-test_day)
+  after_series_upper <- rep(posttest_day_upper, utils::tail(days, 1)-test_day)
+  after_series_lower <- rep(posttest_day_lower, utils::tail(days, 1)-test_day)
 
-  additional_symptomatic <- c(sapply(0:14, prop_remaining, incubation, asympt), NA) -
-    c(NA, sapply(0:14, prop_remaining, incubation, asympt))
-  additional_symptomatic <- additional_symptomatic[(test_day+1):14] * -1
+  additional_symptomatic <- c(sapply(days, prop_remaining, asympt, mu, sigma),
+                              NA) - c(NA, sapply(days, prop_remaining, asympt,
+                                                 mu, sigma))
+  additional_symptomatic <-
+    additional_symptomatic[(test_day+1):utils::tail(days, 1)] * -1
 
   after_series <- after_series -
                    (after_series * cumsum(additional_symptomatic))
@@ -180,21 +207,24 @@ individual_probability <- function(test_day, pre0, sens, spec, incubation,
 #' @param pre0 Pre-test probability of person on day of exposure
 #' @param sens A vector of sensitivities by day since exposure
 #' @param spec The specificity of the PCR test
-#' @param incubation The distribution of incubation period (days to symptom
-#'                   onset) of the format
-#'                   \code{data.frame(x = 0:21, y = dlnorm(c(0:21), 1.63, 0.5))}
 #' @param asympt The proportion of infected patients expected to remain
 #'               asymptomatic throughout the course of infection
+#' @param days The range of days (e.g. 0:14)
+#' @param mu The mean of a lognormal distribution that approximates the
+#'           incubation period for COVID-19. E.g. 1.63 (see reference).
+#' @param sigma The standard deviation of a lognormal distribution that
+#'              approximates the incubation period for COVID-19. E.g. 0.5
+#'              (see reference).
 #' @param n Number of exposed individuals
 #' @return The probability of an event with the specified probability, after n
 #'         repetitions
 #' @export
-unit_probability <- function(test_day, pre0, sens, spec, incubation, asympt,
-                             n) {
+unit_probability <- function(test_day, pre0, sens, spec, asympt, days, mu,
+                             sigma, n) {
 
   series <- individual_probability(test_day = test_day, pre0 = pre0,
-                                   sens = sens, spec = spec,
-                                   incubation = incubation, asympt = asympt)
+                                   sens = sens, spec = spec, asympt = asympt,
+                                   days = days, mu = mu, sigma = sigma)
 
   series_n <- data.frame(point = probability_any(n, series$point),
                          upper = probability_any(n, series$upper),

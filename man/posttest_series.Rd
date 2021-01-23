@@ -4,17 +4,22 @@
 \alias{posttest_series}
 \title{Calculate post-test probability if testing occurred on each day in a series}
 \usage{
-posttest_series(pre0, incubation, asympt, sens, spec)
+posttest_series(pre0, asympt, days = 0:14, mu = 1.63, sigma = 0.5, sens, spec)
 }
 \arguments{
 \item{pre0}{The pretest probability on day 0 (at exposure)}
 
-\item{incubation}{The distribution of incubation period (days to symptom
-onset) of the format
-\code{data.frame(x = 0:21, y = dlnorm(c(0:21), 1.63, 0.5))}}
-
 \item{asympt}{The proportion of infected patients expected to remain
 asymptomatic throughout the course of infection}
+
+\item{days}{The range of days (e.g. 0:14)}
+
+\item{mu}{The mean of a lognormal distribution that approximates the
+incubation period for COVID-19. E.g. 1.63 (see reference).}
+
+\item{sigma}{The standard deviation of a lognormal distribution that
+approximates the incubation period for COVID-19. E.g. 0.5
+(see reference).}
 
 \item{sens}{A vector of sensitivities by day since exposure}
 

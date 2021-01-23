@@ -60,34 +60,40 @@ The incubation period of COVID-19 has been modeled by several groups and a meta-
 
 ```{r, fig.width=8, fig.height=4}
 
-plot(incubation$x, incubation$y, 
+plot(0:21, dlnorm(0:21, 1.63, 0.5), 
      xlab="Days after exposure", 
      ylab="Probability", 
-     main="Incubation period")
-lines(incubation$x, incubation$y)
+     main="Incubation period",
+     type = "b")
 ```
 
 First ignoring asymptomatic individuals, we can calculate the daily pre-test probability for those who do not develop symptoms.
 
 ```{r, fig.width=8, fig.height=4}
 
-prop_sympt_by <- function(t, dist=incubation) {
-  pracma::trapz(0:t, dist$y[1:(t+1)])
-}
-
-plot(0:14, sapply(0:14, prop_sympt_by),
+plot(0:21, plnorm(0:21, 1.63, 0.5),
      ylab="Proportion", 
      xlab = "Days since exposure",
-     main="Infected expected to have developed symptoms")
+     main="Infected expected to have developed symptoms",
+     type="b")
 ```
 
 The proportion of cases that are asymptomatic will vary depending on patient population. Further, the empirical data may be limited by undetected cases in ecological studies. With respect to nursing home residents, a meta-analysis found that 27.9% remained asymptomatic through follow up [@yanes-laneProportion2020].
 
 ```{r, fig.width=8, fig.height=4}
 
-plot(incubation$x, adjust_pretest(0.13, incubation, 0.279), 
-     ylab="Pre-test probability", xlab="Day")
-lines(incubation$x, adjust_pretest(0.13, incubation, 0.279))
+plot(0:14, sapply(0:14, prop_remaining, asympt = 0.279, mu = 1.63, sigma = 0.5),
+     ylab="Proportion remaining", xlab = "Day", ylim = c(0,1), type = "b")
+
+```
+
+With each passing day, if no one develops symptoms, even without testing, the pretest probability is lowered in proportion to the number of people who would have been expected to develop symptoms by that time.
+
+```{r, fig.width=8, fig.height=4}
+
+plot(0:14, adjust_pretest(pre0 = 0.13, asymp = 0.279, days = 0:14), 
+     ylab="Pre-test probability", xlab="Day", type = "b", ylim = c(0, 0.2))
+
 ```
 
 ### Sensitivity
@@ -102,22 +108,23 @@ plot(sens$point, ylim=c(0,1),
      type="l"); 
 lines(sens$lower, col="grey")
 lines(sens$upper, col="grey")
+
 ```
 
 ### Post-test Probability
 
 Post-test probability can be calculated from the estimated pre-test probability and the sensitivity and specificity of the test. Here, we assume a 100% specificity, and use the day-by-day sensitivity plotted above to calculate the post-test probability if testing occurred on each day, to determine the optimal day to test.
 
-Below, we demonstrate the post-test probabilities on an example person with a 13% pretest probability at exposure and assuming 27.8% of patients in this setting remain asymptomatic.
+Below, we demonstrate the post-test probabilities on an example person with a 13% pretest probability at exposure and assuming 27.9% of patients in this setting remain asymptomatic.
 
 ```{r, fig.width=8, fig.height=4}
 
-example <- posttest_series(0.13, incubation, 
-                           0.279, sens$point, 1)
-example_upper <- posttest_series(0.13, incubation, 
-                                 0.279, sens$upper, 1)
-example_lower <- posttest_series(0.13, incubation, 
-                                 0.279, sens$lower, 1)
+example <- posttest_series(pre0 = 0.13, asympt = 0.279,
+                           sens = sens$point, spec = 1)
+example_upper <- posttest_series(pre0 = 0.13, asympt = 0.279, sens = sens$upper, 
+                                 spec = 1)
+example_lower <- posttest_series(pre0 = 0.13, asympt = 0.279, sens = sens$lower,
+                                 spec = 1)
 
 plot(example$x, example$y, 
      xlab="Day of testing", 
@@ -131,7 +138,7 @@ lines(example_lower$x, example_lower$y,
       col="lightblue", type="l")
 lines(example_upper$x, example_upper$y, 
       col="lightblue", type="l")
-lines(incubation$x, adjust_pretest(0.13, incubation, 0.279), 
+lines(0:14, adjust_pretest(0.13, asympt = 0.279), 
       col="red", type="l")
 ```
 
@@ -167,7 +174,7 @@ In the above example, testing on day 9 yields the lowest overall post-test proba
 ```{r, fig.width=8, fig.height=4}
 
 test <- individual_probability(test_day = 9, pre0 = 0.13, sens = sens, spec = 1, 
-                               incubation = incubation, asymp = 0.279)
+                               asymp = 0.279, days = 0:14, mu = 1.63, sigma = 0.5)
 
 plot(1:14, test$point, type="l", ylim=c(0,0.3),
      main = "Individual probabiltiy of undetected COVID-19",
@@ -182,18 +189,27 @@ Now, using the above example, we assume there were 10 exposures and calculate th
 ```{r, fig.width=8, fig.height=4}
 
 test_n <- unit_probability(test_day = 9, pre0 =  0.13, sens = sens, spec = 1, 
-                           incubation = incubation, asympt = 0.279, n = 10)
+                           asympt = 0.279, days = 0:14, mu = 1.63, sigma = 0.5, n = 10)
 
-plot(1:14, test_n$point, type="l", ylim=c(0,1),
+plot(1:14, test_n$point, type="b", ylim=c(0,1),
      main = "Unit-wide probabiltiy of undetected COVID-19",
      xlab = "Days since exposures",
      ylab = "Probability")
 lines(test_n$lower, type="l", col="grey")
 lines(test_n$upper, type="l", col="grey")
-
+abline(v = 9)
+text(1:14, (test_n$point + 0.1), round(test_n$point, 2), cex = 1)
 ```
 
-In this example, testing on day 9 reveals a unit-wide post-test probability of 10.7% on day 9 and 9.1% on day 14. Using the upper 95% confidence interval for test sensitivity, a conservative approach, and testing on day 9, the unit-wide estimate is 15.6% on day 9 and 13.3% on day 14.
+In this example, testing on day 9 reveals a unit-wide post-test probability of 11% on day 9 and 10% when testing on day 9 and waiting until day 14. Using the lower 95% confidence interval for test sensitivity, a conservative approach, and testing on day 9, the unit-wide estimate is 16% on day 9 and 14% on day 14.
+
+```{r}
+test_n$point[9]
+test_n$point[14]
+
+test_n$lower[9]
+test_n$lower[14]
+```
 
 ## Discussion
 
