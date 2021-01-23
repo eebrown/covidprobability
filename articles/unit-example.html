@@ -87,12 +87,14 @@
 <div id="background" class="section level2">
 <h2 class="hasAnchor">
 <a href="#background" class="anchor"></a>Background</h2>
-<div id="pre-test-probability" class="section level3">
+<p>When a person later found to have COVID-19 may have exposed people living on a unit (such as a floor of a hospital or long term care home), infection prevention and control (IPAC) measures are implemented to reduce the risk of transmission among infected people on that unit. This is done to prevent morbidity and mortality from COVID-19, but the risk of COVID-19 is also balanced by the harms of the IPAC measures themselves, such as the loneliness and physical deconditioning that can result from preventing visitors and restricting residents to their rooms. The probability that an undetected case of COVID-19 is present on a unit following possible exposures is therefore a key figure in determining when lift certain IPAC measures.</p>
+<p>Here, we present a method to estimate the probability of an undetected case of COVID-19, when a given number of people have been exposed, with a given pretest probability of having COVID-19 as a result of that exposure.</p>
+<div id="pretest-probability" class="section level3">
 <h3 class="hasAnchor">
-<a href="#pre-test-probability" class="anchor"></a>Pre-test probability</h3>
-<p>The pre-test probability of a COVID-19 infection can be inferred from what is known about SARS-CoV-2 transmission, from the nature of a given exposure, and from empirical data about attack rates in different settings and ages. If someone who is exposed does not develop symptoms, the pre-test probability will drop over time, based on the incubation period of COVID-19. That is, if someone has not developed symptoms by 14 days, the probability of having COVID-19 is very low, in line with World Health Organization guidelines for contacts of cases to quarantine for 14 days.<span class="citation">[@worldhealthorganizationConsiderations2020]</span></p>
-<p>A complicating factor is that a certain proportion of COVID-19 cases are always asymptomatic, that is they don’t develop symptoms despite infection and may be contagious. Thus when incubation period is defined as the time from exposure to symptom onset, this group is not captured. The lack of emergence of symptoms in this group does not inform pre-test probability in a similarly predictable way.</p>
-<p>The pre-test probability can therefore be determined by reducing the probability by the proportion of patients who would be expected to have had symptoms by a given time but did not.</p>
+<a href="#pretest-probability" class="anchor"></a>Pretest probability</h3>
+<p>The pretest probability of a COVID-19 infection can be inferred from what is known about SARS-CoV-2 transmission, from the nature of a given exposure, and from empirical data about attack rates in different settings and ages. If someone who is exposed does not develop symptoms, the pretest probability will drop over time, based on the incubation period of COVID-19. That is, if someone has not developed symptoms by 14 days, the probability of having COVID-19 is very low, in line with World Health Organization guidelines for contacts of cases to quarantine for 14 days.<span class="citation">[@worldhealthorganizationConsiderations2020]</span></p>
+<p>A complicating factor is that a certain proportion of COVID-19 cases are always asymptomatic, that is they don’t develop symptoms despite infection and may be contagious. Thus when incubation period is defined as the time from exposure to symptom onset, this group is not captured. The lack of emergence of symptoms in this group does not inform pretest probability in a similarly predictable way.</p>
+<p>The pretest probability can therefore be determined by reducing the probability by the proportion of patients who would be expected to have had symptoms by a given time but did not.</p>
 </div>
 <div id="testing-for-covid-19" class="section level3">
 <h3 class="hasAnchor">
@@ -104,7 +106,7 @@
 <a href="#presence-of-covid-19-on-the-unit" class="anchor"></a>Presence of COVID-19 on the unit</h3>
 <p>To identify the congregate setting following a suspected exposure event, several assumptions and determinations must be made</p>
 <ol style="list-style-type: decimal">
-<li>Estimate the pre-test probability for each exposure</li>
+<li>Estimate the pretest probability for each exposure</li>
 <li>Assume the exposure events are independent</li>
 <li>Determine the date of the exposure (or last possible date) to set as <code>Day 0</code>.</li>
 </ol>
@@ -119,11 +121,11 @@
 <div id="methods" class="section level2">
 <h2 class="hasAnchor">
 <a href="#methods" class="anchor"></a>Methods</h2>
-<div id="pre-test-probability-1" class="section level3">
+<div id="pretest-probability-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#pre-test-probability-1" class="anchor"></a>Pre-test probability</h3>
-<p>The initial pre-test probability (at Day 0) of each exposed resident following exposure or possible exposure is specified by the investigator. The initial pre-test probability is the expected probability the individual will develop COVID-19.</p>
-<p>Here, we are not considering the scenario where a resident’s pre-test probability increases due to the presence of symptoms. The goal of this tool is to aid the decision of when to test and when to ease restrictions if all exposed remain asymptomatic and no cases are detected.</p>
+<a href="#pretest-probability-1" class="anchor"></a>pretest probability</h3>
+<p>The initial pretest probability (at Day 0) of each exposed resident following exposure or possible exposure is specified by the investigator. The initial pretest probability is the expected probability the individual will develop COVID-19.</p>
+<p>Here, we are not considering the scenario where a resident’s pretest probability increases due to the presence of symptoms. The goal of this tool is to aid the decision of when to test and when to ease restrictions if all exposed remain asymptomatic and no cases are detected.</p>
 <p>The incubation period of COVID-19 has been modeled by several groups and a meta-analysis pooled 8 studies to estimate a lognormal distribution of the incubation period <span class="citation">[@mcaloonIncubation2020]</span> with mu 1.63 (1.51, 1.75), sigma 0.5 (0.45-0.55).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
@@ -133,7 +135,7 @@
      main<span class="op">=</span><span class="st">"Incubation period"</span>,
      type <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span></code></pre></div>
 <p><img src="unit-example_files/figure-html/unnamed-chunk-2-1.png" width="768"></p>
-<p>First ignoring asymptomatic individuals, we can calculate the daily pre-test probability for those who do not develop symptoms.</p>
+<p>First ignoring asymptomatic individuals, we can calculate the daily pretest probability for those who do not develop symptoms.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">21</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Lognormal.html">plnorm</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">21</span>, <span class="fl">1.63</span>, <span class="fl">0.5</span><span class="op">)</span>,
@@ -142,7 +144,7 @@
      main<span class="op">=</span><span class="st">"Infected expected to have developed symptoms"</span>,
      type<span class="op">=</span><span class="st">"b"</span><span class="op">)</span></code></pre></div>
 <p><img src="unit-example_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
-<p>The proportion of cases that are asymptomatic will vary depending on patient population. Further, the empirical data may be limited by undetected cases in ecological studies. With respect to nursing home residents, a meta-analysis found that 27.9% remained asymptomatic through follow up <span class="citation">[@yanes-laneProportion2020]</span>.</p>
+<p>The proportion of cases that are asymptomatic will vary depending on patient population. Further, the empirical data may be limited by undetected cases in ecological studies. With respect to nursing home residents, a meta-analysis found that 27.9% remained asymptomatic through follow up (Yanes-Lane et al. 2020).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">14</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">14</span>, <span class="va">prop_remaining</span>, asympt <span class="op">=</span> <span class="fl">0.279</span>, mu <span class="op">=</span> <span class="fl">1.63</span>, sigma <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,
@@ -152,13 +154,13 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">14</span>, <span class="fu"><a href="../reference/adjust_pretest.html">adjust_pretest</a></span><span class="op">(</span>pre0 <span class="op">=</span> <span class="fl">0.13</span>, asymp <span class="op">=</span> <span class="fl">0.279</span>, days <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">14</span><span class="op">)</span>, 
-     ylab<span class="op">=</span><span class="st">"Pre-test probability"</span>, xlab<span class="op">=</span><span class="st">"Day"</span>, type <span class="op">=</span> <span class="st">"b"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+     ylab<span class="op">=</span><span class="st">"pretest probability"</span>, xlab<span class="op">=</span><span class="st">"Day"</span>, type <span class="op">=</span> <span class="st">"b"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="unit-example_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
 </div>
 <div id="sensitivity" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sensitivity" class="anchor"></a>Sensitivity</h3>
-<p>To account for the changing sensitivity of the PCR COVID-19 test, we used the PCR sensitivity values from a model derived from empirical data in a meta-analysis <span class="citation">[@kucirkaVariation2020]</span>, as reported at [<a href="https://github.com/HopkinsIDD/covidRTPCR" class="uri">https://github.com/HopkinsIDD/covidRTPCR</a>].</p>
+<p>To account for the changing sensitivity of the PCR COVID-19 test, we used the PCR sensitivity values from a model derived from empirical data in a meta-analysis (Kucirka et al. 2020), as reported at [<a href="https://github.com/HopkinsIDD/covidRTPCR" class="uri">https://github.com/HopkinsIDD/covidRTPCR</a>].</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sens</span><span class="op">$</span><span class="va">point</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>,
@@ -169,11 +171,11 @@
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">sens</span><span class="op">$</span><span class="va">upper</span>, col<span class="op">=</span><span class="st">"grey"</span><span class="op">)</span></code></pre></div>
 <p><img src="unit-example_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
 </div>
-<div id="post-test-probability" class="section level3">
+<div id="posttest-probability" class="section level3">
 <h3 class="hasAnchor">
-<a href="#post-test-probability" class="anchor"></a>Post-test Probability</h3>
-<p>Post-test probability can be calculated from the estimated pre-test probability and the sensitivity and specificity of the test. Here, we assume a 100% specificity, and use the day-by-day sensitivity plotted above to calculate the post-test probability if testing occurred on each day, to determine the optimal day to test.</p>
-<p>Below, we demonstrate the post-test probabilities on an example person with a 13% pretest probability at exposure and assuming 27.9% of patients in this setting remain asymptomatic.</p>
+<a href="#posttest-probability" class="anchor"></a>Posttest Probability</h3>
+<p>Posttest probability can be calculated from the estimated pretest probability and the sensitivity and specificity of the test. Here, we assume a 100% specificity, and use the day-by-day sensitivity plotted above to calculate the posttest probability if testing occurred on each day, to determine the optimal day to test.</p>
+<p>Below, we demonstrate the posttest probabilities on an example person with a 13% pretest probability at exposure and assuming 27.9% of patients in this setting remain asymptomatic.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">example</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/posttest_series.html">posttest_series</a></span><span class="op">(</span>pre0 <span class="op">=</span> <span class="fl">0.13</span>, asympt <span class="op">=</span> <span class="fl">0.279</span>,
@@ -186,7 +188,7 @@
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example</span><span class="op">$</span><span class="va">x</span>, <span class="va">example</span><span class="op">$</span><span class="va">y</span>, 
      xlab<span class="op">=</span><span class="st">"Day of testing"</span>, 
      ylab<span class="op">=</span><span class="st">"Probability of having COVID-19"</span>,
-     main<span class="op">=</span><span class="st">"Red = pre-test; Blue = post-test"</span>,
+     main<span class="op">=</span><span class="st">"Red = pretest; Blue = posttest"</span>,
      ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.25</span><span class="op">)</span>, col<span class="op">=</span><span class="st">"blue"</span>, type<span class="op">=</span><span class="st">"l"</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">example</span><span class="op">$</span><span class="va">x</span>, <span class="va">example</span><span class="op">$</span><span class="va">y</span>, 
@@ -199,11 +201,11 @@
       col<span class="op">=</span><span class="st">"red"</span>, type<span class="op">=</span><span class="st">"l"</span><span class="op">)</span></code></pre></div>
 <p><img src="unit-example_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
 </div>
-<div id="unit-wide-post-test-probability" class="section level3">
+<div id="unit-wide-posttest-probability" class="section level3">
 <h3 class="hasAnchor">
-<a href="#unit-wide-post-test-probability" class="anchor"></a>Unit-wide post-test Probability</h3>
+<a href="#unit-wide-posttest-probability" class="anchor"></a>Unit-wide posttest Probability</h3>
 <p>The relevant risk in deciding whether to maintain heightened precautions on a unit is the probability that any person is infected, or alternatively, the complement of the probability that no person is infected. That is, the probability of any case being present, is 1 less the additive probability of each case not being present.</p>
-<p>Below, we determine the post-test probability of any person having undetected COVID-19 by day, if all people were tested on the same day. Note again that the x-axis reflects the date of testing.</p>
+<p>Below, we determine the posttest probability of any person having undetected COVID-19 by day, if all people were tested on the same day. Note again that the x-axis reflects the date of testing.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">unit_size</span> <span class="op">&lt;-</span> <span class="fl">4</span>
@@ -223,7 +225,7 @@
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v<span class="op">=</span><span class="va">example</span><span class="op">$</span><span class="va">x</span><span class="op">[</span><span class="va">example</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">==</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">example</span><span class="op">$</span><span class="va">y</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <p><img src="unit-example_files/figure-html/unnamed-chunk-8-1.png" width="768"></p>
-<p>In the above example, testing on day 9 yields the lowest overall post-test probability; it is the minimum. If we specify the date of testing, we can calculate and plot the change in estimated probability over time, with dates prior to testing reflecting pre-test probability on that day and dates after testing reflecting post-test probability, again assuming no one develops symptoms.</p>
+<p>In the above example, testing on day 9 yields the lowest overall posttest probability; it is the minimum. If we specify the date of testing, we can calculate and plot the change in estimated probability over time, with dates prior to testing reflecting pretest probability on that day and dates after testing reflecting posttest probability, again assuming no one develops symptoms.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">test</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/individual_probability.html">individual_probability</a></span><span class="op">(</span>test_day <span class="op">=</span> <span class="fl">9</span>, pre0 <span class="op">=</span> <span class="fl">0.13</span>, sens <span class="op">=</span> <span class="va">sens</span>, spec <span class="op">=</span> <span class="fl">1</span>, 
@@ -251,7 +253,7 @@
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">9</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">14</span>, <span class="op">(</span><span class="va">test_n</span><span class="op">$</span><span class="va">point</span> <span class="op">+</span> <span class="fl">0.1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">test_n</span><span class="op">$</span><span class="va">point</span>, <span class="fl">2</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <p><img src="unit-example_files/figure-html/unnamed-chunk-10-1.png" width="768"></p>
-<p>In this example, testing on day 9 reveals a unit-wide post-test probability of 11% on day 9 and 10% when testing on day 9 and waiting until day 14. Using the lower 95% confidence interval for test sensitivity, a conservative approach, and testing on day 9, the unit-wide estimate is 16% on day 9 and 14% on day 14.</p>
+<p>In this example, testing on day 9 reveals a unit-wide posttest probability of 11% on day 9 and 10% when testing on day 9 and waiting until day 14. Using the lower 95% confidence interval for test sensitivity, a conservative approach, and testing on day 9, the unit-wide estimate is 16% on day 9 and 14% on day 14.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">test_n</span><span class="op">$</span><span class="va">point</span><span class="op">[</span><span class="fl">9</span><span class="op">]</span>
 <span class="co">#&gt; [1] 0.106424</span>
@@ -270,15 +272,37 @@
 <div id="limitations-and-assumptions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#limitations-and-assumptions" class="anchor"></a>Limitations and Assumptions</h3>
+<p>The results produced by this package are based on estimates and have several assumptions which may mean that it is not suitable for a given setting. This package should not be relied upon for clinical decisions, but may be useful to explore the possible relationship between certain parameters and the probability of undetected COVID-19 in a setting, acknowledging the assumptions made.</p>
+<div id="parameters" class="section level4">
+<h4 class="hasAnchor">
+<a href="#parameters" class="anchor"></a>Parameters</h4>
+<p>The parameters of the model are themselves also estimates. The estimates depend on empirical data which were generally compiled from different settings.</p>
+<p>The distribution for the incubation period is pooled from various sources and only the point estimate of the distribution is used here. McAloon et al. report a lognormal distribution (mu = 1.63, sigma = 0.5). Lauer et al. report a similar distribution (mu = 1.621, sigma = 0.418).</p>
+<p>The varying sensitivity of PCR tests is a pooled Bayesian estimate (Kucirka et al. 2020), and various assumptions were made to determine this best estimate, as described by the authors. Even if accurate, the test characteristics at a given site would be different than a pooled average.</p>
+<p>The user-specified parameters are inherently estimates as well.</p>
+<p>Pretest probability could be approximated by looking at average attack rates in certain settings with certain types of encounters.</p>
+<p>The rate of true asymptomatic infections appears to vary by setting and have considerable heterogeneity. For example, at 27.9% (13.0 - 49.8%) in nursing home residents and 58.8% (48.8 - 68.1%) in obstetrical patients presenting to hospitals (Yanes-Lane et al. 2020).</p>
+</div>
+<div id="model-assumptions" class="section level4">
+<h4 class="hasAnchor">
+<a href="#model-assumptions" class="anchor"></a>Model assumptions</h4>
+<p>The model herein assumes that no exposed individuals have developed symptoms (and assumes that those who do have been identified). However, the model can be agnostic to symptoms if the proportion of asymptomatic individuals is set to 1.</p>
+<p>The model assumes that exposures were independent events.</p>
+</div>
 </div>
 <div id="future-directions-and-contributing" class="section level3">
 <h3 class="hasAnchor">
 <a href="#future-directions-and-contributing" class="anchor"></a>Future Directions (and Contributing)</h3>
+<p>This R package and accompanying Shiny app are available to the public for review. Any corrections or improvements can be recommended by filing a Github issue. As further research is done into COVID-19, improved estimates of the parameters may become available and can be incorporated into this tool.</p>
 </div>
 </div>
 <div id="references" class="section level2">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
+<p>Kucirka LM, Lauer SA, Laeyendecker O, Boon D, Lessler J. Variation in False-Negative Rate of Reverse Transcriptase Polymerase Chain Reaction–Based SARS-CoV-2 Tests by Time Since Exposure. Annals of Internal Medicine. 2020;173(4):262-267. <a href="doi:10.7326/M20-1495" class="uri">doi:10.7326/M20-1495</a></p>
+<p>A. Lauer S, H. Grantz K, Bi Q, et al. The Incubation Period of Coronavirus Disease 2019 (COVID-19) From Publicly Reported Confirmed Cases: Estimation and Application. Annals of Internal Medicine. Published online March 10, 2020. <a href="doi:10.7326/M20-0504" class="uri">doi:10.7326/M20-0504</a></p>
+<p>McAloon C, Collins Á, Hunt K, et al. Incubation period of COVID-19: a rapid systematic review and meta-analysis of observational research. BMJ Open. 2020;10(8):e039652. <a href="doi:10.1136/bmjopen-2020-039652" class="uri">doi:10.1136/bmjopen-2020-039652</a></p>
+<p>Yanes-Lane M, Winters N, Fregonese F, et al. Proportion of asymptomatic infection among COVID-19 positive persons and their transmission potential: A systematic review and meta-analysis. PLOS ONE. 2020;15(11):e0241536. <a href="doi:10.1371/journal.pone.0241536" class="uri">doi:10.1371/journal.pone.0241536</a></p>
 </div>
   </div>
 
