@@ -16,6 +16,11 @@ when there are no symptomatic cases. For a detailed explanation of the
 rationale and implementation, please see the
 [vignette](https://eebrown.github.io/covidprobability/articles/unit-example.html).
 
+## Shiny
+
+An [interactive web app](http://covid.eebc.ca) of this calculator is
+available.
+
 ## Installation
 
 You can install the latest version of covidprobability from
@@ -35,10 +40,12 @@ upon for clinical decisions.
 ## Example
 
 ``` r
+
 library(covidprobability)
 
 test_n <- unit_probability(test_day = 9, pre0 =  0.13, sens = sens, spec = 1, 
-                           incubation = incubation, asympt = 0.278, n = 10)
+                           asympt = 0.279, days = 0:14, mu = 1.63, sigma = 0.5, 
+                           n = 10)
 ```
 
 <img src="man/figures/README-unit_example-1.png" width="100%" />

@@ -25,6 +25,10 @@ a setting/unit after a potential exposure, testing, and when there are no
 symptomatic cases. For a detailed explanation of the rationale and 
 implementation, please see the [vignette](https://eebrown.github.io/covidprobability/articles/unit-example.html).
 
+## Shiny
+
+An [interactive web app](http://covid.eebc.ca) of this calculator is available.
+
 ## Installation
 
 You can install the latest version of covidprobability from [Github](https://github.com/eebrown/covidprobability) with:
@@ -41,21 +45,27 @@ This is an exploratory model and may contain errors. Please see the [vignette](h
 
 
 ```{r example}
+
 library(covidprobability)
 
 test_n <- unit_probability(test_day = 9, pre0 =  0.13, sens = sens, spec = 1, 
-                           incubation = incubation, asympt = 0.278, n = 10)
+                           asympt = 0.279, days = 0:14, mu = 1.63, sigma = 0.5, 
+                           n = 10)
 
 ```
 
 
 ```{r unit_example, echo = FALSE}
-plot(1:14, test_n$point, type="l", ylim=c(0,1),
+
+plot(1:14, test_n$point, type="b", ylim=c(0,1),
      main = "Unit-wide probabiltiy of undetected COVID-19",
      xlab = "Days since exposures",
      ylab = "Probability")
 lines(test_n$lower, type="l", col="grey")
 lines(test_n$upper, type="l", col="grey")
+abline(v = 9)
+text(1:14, (test_n$point + 0.1), round(test_n$point, 2), cex = 1)
+
 ```
 
 
