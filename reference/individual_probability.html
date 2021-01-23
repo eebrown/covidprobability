@@ -95,7 +95,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/unit-example.html">unit-example</a>
+      <a href="../articles/unit-example.html">Probability of Undetected COVID-19 on a Unit</a>
     </li>
   </ul>
 </li>
@@ -124,7 +124,7 @@
     <p>Calculate a time series of probability for an individual following exposure</p>
     </div>
 
-    <pre class="usage"><span class='fu'>individual_probability</span><span class='op'>(</span><span class='va'>test_day</span>, <span class='va'>pre0</span>, <span class='va'>sens</span>, <span class='va'>spec</span>, <span class='va'>incubation</span>, <span class='va'>asympt</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>individual_probability</span><span class='op'>(</span><span class='va'>test_day</span>, <span class='va'>pre0</span>, <span class='va'>sens</span>, <span class='va'>spec</span>, <span class='va'>asympt</span>, <span class='va'>days</span>, <span class='va'>mu</span>, <span class='va'>sigma</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,15 +146,24 @@
       <td><p>The specificity of the PCR test</p></td>
     </tr>
     <tr>
-      <th>incubation</th>
-      <td><p>The distribution of incubation period (days to symptom
-onset) of the format
-<code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame(x = 0:21, y = dlnorm(c(0:21), 1.63, 0.5))</a></code></p></td>
-    </tr>
-    <tr>
       <th>asympt</th>
       <td><p>The proportion of infected patients expected to remain
 asymptomatic throughout the course of infection</p></td>
+    </tr>
+    <tr>
+      <th>days</th>
+      <td><p>The range of days (e.g. 0:14)</p></td>
+    </tr>
+    <tr>
+      <th>mu</th>
+      <td><p>The mean of a lognormal distribution that approximates the
+incubation period for COVID-19. E.g. 1.63 (see reference).</p></td>
+    </tr>
+    <tr>
+      <th>sigma</th>
+      <td><p>The standard deviation of a lognormal distribution that
+approximates the incubation period for COVID-19. E.g. 0.5
+(see reference).</p></td>
     </tr>
     </table>
 

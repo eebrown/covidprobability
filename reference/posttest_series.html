@@ -100,7 +100,7 @@ were done each day and assumes testing was only done once." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/unit-example.html">unit-example</a>
+      <a href="../articles/unit-example.html">Probability of Undetected COVID-19 on a Unit</a>
     </li>
   </ul>
 </li>
@@ -134,7 +134,7 @@ day. Note this is not a time series, and does not reflect if serial testing
 were done each day and assumes testing was only done once.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>posttest_series</span><span class='op'>(</span><span class='va'>pre0</span>, <span class='va'>incubation</span>, <span class='va'>asympt</span>, <span class='va'>sens</span>, <span class='va'>spec</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>posttest_series</span><span class='op'>(</span><span class='va'>pre0</span>, <span class='va'>asympt</span>, days <span class='op'>=</span> <span class='fl'>0</span><span class='op'>:</span><span class='fl'>14</span>, mu <span class='op'>=</span> <span class='fl'>1.63</span>, sigma <span class='op'>=</span> <span class='fl'>0.5</span>, <span class='va'>sens</span>, <span class='va'>spec</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -144,15 +144,24 @@ were done each day and assumes testing was only done once.</p>
       <td><p>The pretest probability on day 0 (at exposure)</p></td>
     </tr>
     <tr>
-      <th>incubation</th>
-      <td><p>The distribution of incubation period (days to symptom
-onset) of the format
-<code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame(x = 0:21, y = dlnorm(c(0:21), 1.63, 0.5))</a></code></p></td>
-    </tr>
-    <tr>
       <th>asympt</th>
       <td><p>The proportion of infected patients expected to remain
 asymptomatic throughout the course of infection</p></td>
+    </tr>
+    <tr>
+      <th>days</th>
+      <td><p>The range of days (e.g. 0:14)</p></td>
+    </tr>
+    <tr>
+      <th>mu</th>
+      <td><p>The mean of a lognormal distribution that approximates the
+incubation period for COVID-19. E.g. 1.63 (see reference).</p></td>
+    </tr>
+    <tr>
+      <th>sigma</th>
+      <td><p>The standard deviation of a lognormal distribution that
+approximates the incubation period for COVID-19. E.g. 0.5
+(see reference).</p></td>
     </tr>
     <tr>
       <th>sens</th>

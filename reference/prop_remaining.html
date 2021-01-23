@@ -40,7 +40,12 @@
 
 
 <meta property="og:title" content="The remaining individuals who would not be expected to show symptoms yet — prop_remaining" />
-<meta property="og:description" content="The remaining individuals who would not be expected to show symptoms yet" />
+<meta property="og:description" content="Every day, a certain number of people are expected to show symptoms, based
+on the incubation period. This would typically lead to further investigation
+and ongoing suspicion of an outbreak. This function calculates the proportion
+of individuals on a given day that would not be expected to have developed
+symptoms yet. So if no one has developed symptoms, this proportion of people
+could still have undetected COVID-19." />
 
 
 
@@ -95,7 +100,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/unit-example.html">unit-example</a>
+      <a href="../articles/unit-example.html">Probability of Undetected COVID-19 on a Unit</a>
     </li>
   </ul>
 </li>
@@ -121,10 +126,15 @@
     </div>
 
     <div class="ref-description">
-    <p>The remaining individuals who would not be expected to show symptoms yet</p>
+    <p>Every day, a certain number of people are expected to show symptoms, based
+on the incubation period. This would typically lead to further investigation
+and ongoing suspicion of an outbreak. This function calculates the proportion
+of individuals on a given day that would not be expected to have developed
+symptoms yet. So if no one has developed symptoms, this proportion of people
+could still have undetected COVID-19.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>prop_remaining</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>incubation</span>, <span class='va'>asympt</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>prop_remaining</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>asympt</span>, mu <span class='op'>=</span> <span class='fl'>1.63</span>, sigma <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,21 +144,29 @@
       <td><p>day</p></td>
     </tr>
     <tr>
-      <th>incubation</th>
-      <td><p>The distribution of incubation period (days to symptom
-onset) of the format
-<code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame(x = 0:21, y = dlnorm(c(0:21), 1.63, 0.5))</a></code></p></td>
-    </tr>
-    <tr>
       <th>asympt</th>
       <td><p>The proportion of positive patients who would be expected not
 to ever develop symptoms (true asymptomatic patients).</p></td>
+    </tr>
+    <tr>
+      <th>mu</th>
+      <td><p>The mean of a lognormal distribution that approximates the
+incubation period for COVID-19. E.g. 1.63 (see reference).</p></td>
+    </tr>
+    <tr>
+      <th>sigma</th>
+      <td><p>The standard deviation of a lognormal distribution that
+approximates the incubation period for COVID-19. E.g. 0.5
+(see reference).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Proportion who would not be expected to show symptoms yet</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>See McAloon et al. <a href='https://bmjopen.bmj.com/content/10/8/e039652'>https://bmjopen.bmj.com/content/10/8/e039652</a></p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
