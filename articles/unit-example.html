@@ -88,19 +88,7 @@
 <h2 class="hasAnchor">
 <a href="#background" class="anchor"></a>Background</h2>
 <p>When a person later found to have COVID-19 may have exposed people living on a unit (such as a floor of a hospital or long term care home), infection prevention and control (IPAC) measures are implemented to reduce the risk of transmission among infected people on that unit. This is done to prevent morbidity and mortality from COVID-19, but the risk of COVID-19 is also balanced by the harms of the IPAC measures themselves, such as the loneliness and physical deconditioning that can result from preventing visitors and restricting residents to their rooms. The probability that an undetected case of COVID-19 is present on a unit following possible exposures is therefore a key figure in determining when lift certain IPAC measures.</p>
-<p>Here, we present a method to estimate the probability of an undetected case of COVID-19, when a given number of people have been exposed, with a given pretest probability of having COVID-19 as a result of that exposure.</p>
-<div id="pretest-probability" class="section level3">
-<h3 class="hasAnchor">
-<a href="#pretest-probability" class="anchor"></a>Pretest probability</h3>
-<p>The pretest probability of a COVID-19 infection can be inferred from what is known about SARS-CoV-2 transmission, from the nature of a given exposure, and from empirical data about attack rates in different settings and ages. If someone who is exposed does not develop symptoms, the pretest probability will drop over time, based on the incubation period of COVID-19. That is, if someone has not developed symptoms by 14 days, the probability of having COVID-19 is very low, in line with World Health Organization guidelines for contacts of cases to quarantine for 14 days.<span class="citation">[@worldhealthorganizationConsiderations2020]</span></p>
-<p>A complicating factor is that a certain proportion of COVID-19 cases are always asymptomatic, that is they don’t develop symptoms despite infection and may be contagious. Thus when incubation period is defined as the time from exposure to symptom onset, this group is not captured. The lack of emergence of symptoms in this group does not inform pretest probability in a similarly predictable way.</p>
-<p>The pretest probability can therefore be determined by reducing the probability by the proportion of patients who would be expected to have had symptoms by a given time but did not.</p>
-</div>
-<div id="testing-for-covid-19" class="section level3">
-<h3 class="hasAnchor">
-<a href="#testing-for-covid-19" class="anchor"></a>Testing for COVID-19</h3>
-<p>Polymerase chain reaction (PCR) is the gold standard diagnostic test for COVID-19 and the most widely available at this time. While the specificity of the test is excellent, approaching 100%, it is less sensitive than it is specific. Thus, a negative test does not rule out the presence of COVID-19 with certainty. Further, the sensitivity of PCR varies by time from exposure, which reflects the changing viral load <span class="citation">[@kucirkaVariation2020]</span>.</p>
-</div>
+<p>Here, we propose a method to estimate the probability of an undetected case of COVID-19, when a given number of people have been exposed, with a given pretest probability of having COVID-19 as a result of that exposure. Since we are interested in undetected COVID-19, we assume no person has developed symptoms (which would warrant further investigation) and that everyone was tested with polymerase chain reaction (PCR) on a given day, and all tested negative.</p>
 <div id="presence-of-covid-19-on-the-unit" class="section level3">
 <h3 class="hasAnchor">
 <a href="#presence-of-covid-19-on-the-unit" class="anchor"></a>Presence of COVID-19 on the unit</h3>
@@ -121,9 +109,9 @@
 <div id="methods" class="section level2">
 <h2 class="hasAnchor">
 <a href="#methods" class="anchor"></a>Methods</h2>
-<div id="pretest-probability-1" class="section level3">
+<div id="pretest-probability" class="section level3">
 <h3 class="hasAnchor">
-<a href="#pretest-probability-1" class="anchor"></a>pretest probability</h3>
+<a href="#pretest-probability" class="anchor"></a>pretest probability</h3>
 <p>The initial pretest probability (at Day 0) of each exposed resident following exposure or possible exposure is specified by the investigator. The initial pretest probability is the expected probability the individual will develop COVID-19.</p>
 <p>Here, we are not considering the scenario where a resident’s pretest probability increases due to the presence of symptoms. The goal of this tool is to aid the decision of when to test and when to ease restrictions if all exposed remain asymptomatic and no cases are detected.</p>
 <p>The incubation period of COVID-19 has been modeled by several groups and a meta-analysis pooled 8 studies to estimate a lognormal distribution of the incubation period <span class="citation">[@mcaloonIncubation2020]</span> with mu 1.63 (1.51, 1.75), sigma 0.5 (0.45-0.55).</p>
@@ -280,7 +268,7 @@
 <p>The distribution for the incubation period is pooled from various sources and only the point estimate of the distribution is used here. McAloon et al. report a lognormal distribution (mu = 1.63, sigma = 0.5). Lauer et al. report a similar distribution (mu = 1.621, sigma = 0.418).</p>
 <p>The varying sensitivity of PCR tests is a pooled Bayesian estimate (Kucirka et al. 2020), and various assumptions were made to determine this best estimate, as described by the authors. Even if accurate, the test characteristics at a given site would be different than a pooled average.</p>
 <p>The user-specified parameters are inherently estimates as well.</p>
-<p>Pretest probability could be approximated by looking at average attack rates in certain settings with certain types of encounters.</p>
+<p>Pretest probability could be approximated by looking at average attack rates in certain settings with certain types of encounters. The nature of the encounter and timing of the case’s infection are important factors (<a href="https://www.publichealthontario.ca/-/media/documents/ncov/main/2020/09/covid-19-contact-tracing-risk-assessment.pdf?la=en" class="uri">https://www.publichealthontario.ca/-/media/documents/ncov/main/2020/09/covid-19-contact-tracing-risk-assessment.pdf?la=en</a>).</p>
 <p>The rate of true asymptomatic infections appears to vary by setting and have considerable heterogeneity. For example, at 27.9% (13.0 - 49.8%) in nursing home residents and 58.8% (48.8 - 68.1%) in obstetrical patients presenting to hospitals (Yanes-Lane et al. 2020).</p>
 </div>
 <div id="model-assumptions" class="section level4">
