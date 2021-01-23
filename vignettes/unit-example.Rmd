@@ -22,20 +22,9 @@ library(covidprobability)
 
 When a person later found to have COVID-19 may have exposed people living on a unit (such as a floor of a hospital or long term care home), infection prevention and control (IPAC) measures are implemented to reduce the risk of transmission among infected people on that unit. This is done to prevent morbidity and mortality from COVID-19, but the risk of COVID-19 is also balanced by the harms of the IPAC measures themselves, such as the loneliness and physical deconditioning that can result from preventing visitors and restricting residents to their rooms. The probability that an undetected case of COVID-19 is present on a unit following possible exposures is therefore a key figure in determining when lift certain IPAC measures.
 
-Here, we present a method to estimate the probability of an undetected case of COVID-19, when
-a given number of people have been exposed, with a given pretest probability of having COVID-19 as a result of that exposure.
+Here, we propose a method to estimate the probability of an undetected case of COVID-19, when
+a given number of people have been exposed, with a given pretest probability of having COVID-19 as a result of that exposure. Since we are interested in undetected COVID-19, we assume no person has developed symptoms (which would warrant further investigation) and that everyone was tested with polymerase chain reaction (PCR) on a given day, and all tested negative.
 
-### Pretest probability
-
-The pretest probability of a COVID-19 infection can be inferred from what is known about SARS-CoV-2 transmission, from the nature of a given exposure, and from empirical data about attack rates in different settings and ages. If someone who is exposed does not develop symptoms, the pretest probability will drop over time, based on the incubation period of COVID-19. That is, if someone has not developed symptoms by 14 days, the probability of having COVID-19 is very low, in line with World Health Organization guidelines for contacts of cases to quarantine for 14 days.[@worldhealthorganizationConsiderations2020] 
-
-A complicating factor is that a certain proportion of COVID-19 cases are always asymptomatic, that is they don't develop symptoms despite infection and may be contagious. Thus when incubation period is defined as the time from exposure to symptom onset, this group is not captured. The lack of emergence of symptoms in this group does not inform pretest probability in a similarly predictable way.
-
-The pretest probability can therefore be determined by reducing the probability by the proportion of patients who would be expected to have had symptoms by a given time but did not. 
-
-### Testing for COVID-19
-
-Polymerase chain reaction (PCR) is the gold standard diagnostic test for COVID-19 and the most widely available at this time. While the specificity of the test is excellent, approaching 100%, it is less sensitive than it is specific. Thus, a negative test does not rule out the presence of COVID-19 with certainty. Further, the sensitivity of PCR varies by time from exposure, which reflects the changing viral load [@kucirkaVariation2020].
 
 ### Presence of COVID-19 on the unit
 
@@ -230,7 +219,7 @@ The varying sensitivity of PCR tests is a pooled Bayesian estimate (Kucirka et a
 
 The user-specified parameters are inherently estimates as well. 
 
-Pretest probability could be approximated by looking at average attack rates in certain settings with certain types of encounters.
+Pretest probability could be approximated by looking at average attack rates in certain settings with certain types of encounters. The nature of the encounter and timing of the case's infection are important factors  (<https://www.publichealthontario.ca/-/media/documents/ncov/main/2020/09/covid-19-contact-tracing-risk-assessment.pdf?la=en>).
 
 The rate of true asymptomatic infections appears to vary by setting and have considerable heterogeneity. For example, at 27.9% (13.0 - 49.8%) in nursing home residents and 58.8% (48.8 - 68.1%) in obstetrical patients presenting to hospitals (Yanes-Lane et al. 2020). 
 
