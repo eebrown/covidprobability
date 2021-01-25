@@ -40,7 +40,15 @@
 
 
 <meta property="og:title" content="Calculate a time series of probability for an individual following exposure — individual_probability" />
-<meta property="og:description" content="Calculate a time series of probability for an individual following exposure" />
+<meta property="og:description" content="The probability that an individual has COVID-19 will change over time as new
+information is gleaned. The initial probability is the pretest probability
+(pre0) associated with the nature of the interaction/exposure. This
+probability will decrease with each passing day that the individual does not
+develop symptoms. When a test is done, the probability is the posttest
+probability; this reduces the probability based on the test characteristics
+at the time of testing. Subsequently, the probability will continue to
+decrease with each passing day that no symptoms develop. This function
+returns a time series including those 3 phases." />
 
 
 
@@ -121,7 +129,15 @@
     </div>
 
     <div class="ref-description">
-    <p>Calculate a time series of probability for an individual following exposure</p>
+    <p>The probability that an individual has COVID-19 will change over time as new
+information is gleaned. The initial probability is the pretest probability
+(pre0) associated with the nature of the interaction/exposure. This
+probability will decrease with each passing day that the individual does not
+develop symptoms. When a test is done, the probability is the posttest
+probability; this reduces the probability based on the test characteristics
+at the time of testing. Subsequently, the probability will continue to
+decrease with each passing day that no symptoms develop. This function
+returns a time series including those 3 phases.</p>
     </div>
 
     <pre class="usage"><span class='fu'>individual_probability</span><span class='op'>(</span><span class='va'>test_day</span>, <span class='va'>pre0</span>, <span class='va'>sens</span>, <span class='va'>spec</span>, <span class='va'>asympt</span>, <span class='va'>days</span>, <span class='va'>mu</span>, <span class='va'>sigma</span><span class='op'>)</span></pre>
@@ -169,8 +185,7 @@ approximates the incubation period for COVID-19. E.g. 0.5
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The probability of an event with the specified probability, after n
-repetitions</p>
+    <p>A time series of probabilities</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

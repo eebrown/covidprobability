@@ -40,7 +40,10 @@
 
 
 <meta property="og:title" content="Calculate a time series of unit-wide probability following exposure — unit_probability" />
-<meta property="og:description" content="Calculate a time series of unit-wide probability following exposure" />
+<meta property="og:description" content="To calculate the probability that any asymptomatic person has COVID-19,
+this function treats each person/exposure as independent events and
+calculates the probability time series using the individuals time series from
+individual_probability()." />
 
 
 
@@ -121,7 +124,10 @@
     </div>
 
     <div class="ref-description">
-    <p>Calculate a time series of unit-wide probability following exposure</p>
+    <p>To calculate the probability that any asymptomatic person has COVID-19,
+this function treats each person/exposure as independent events and
+calculates the probability time series using the individuals time series from
+<code><a href='individual_probability.html'>individual_probability()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>unit_probability</span><span class='op'>(</span><span class='va'>test_day</span>, <span class='va'>pre0</span>, <span class='va'>sens</span>, <span class='va'>spec</span>, <span class='va'>asympt</span>, <span class='va'>days</span>, <span class='va'>mu</span>, <span class='va'>sigma</span>, <span class='va'>n</span><span class='op'>)</span></pre>
