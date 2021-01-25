@@ -211,7 +211,7 @@ The results produced by this package are based on estimates and have several ass
 
 #### Parameters
 
-The parameters of the model are themselves also estimates. The estimates depend on empirical data which were generally compiled from different settings. 
+The parameters of the model are themselves also estimates. The estimates depend on empirical data which were generally compiled from different settings. The underlying data may not apply to the setting to which the calculator is applied. This may be particularly true, for example, as emerging variants of COVID-19 impact the parameters needed for the calculations.
 
 The distribution for the incubation period is pooled from various sources and only the point estimate of the distribution is used here. McAloon et al. report a lognormal distribution (mu = 1.63, sigma = 0.5). Lauer et al. report a similar distribution (mu = 1.621, sigma = 0.418).
 

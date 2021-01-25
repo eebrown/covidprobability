@@ -137,7 +137,15 @@ probability_any <- function(n, p) {
 
 #' Calculate a time series of probability for an individual following exposure
 #'
-#'
+#' The probability that an individual has COVID-19 will change over time as new
+#' information is gleaned. The initial probability is the pretest probability
+#' (pre0) associated with the nature of the interaction/exposure. This
+#' probability will decrease with each passing day that the individual does not
+#' develop symptoms. When a test is done, the probability is the posttest
+#' probability; this reduces the probability based on the test characteristics
+#' at the time of testing. Subsequently, the probability will continue to
+#' decrease with each passing day that no symptoms develop. This function
+#' returns a time series including those 3 phases.
 #'
 #' @param test_day Day of PCR test (days since exposure)
 #' @param pre0 Pre-test probability of person on day of exposure
@@ -151,8 +159,7 @@ probability_any <- function(n, p) {
 #' @param sigma The standard deviation of a lognormal distribution that
 #'              approximates the incubation period for COVID-19. E.g. 0.5
 #'              (see reference).
-#' @return The probability of an event with the specified probability, after n
-#'         repetitions
+#' @return A time series of probabilities
 #' @export
 individual_probability <- function(test_day, pre0, sens, spec,
                                    asympt, days, mu, sigma) {
@@ -201,7 +208,10 @@ individual_probability <- function(test_day, pre0, sens, spec,
 
 #' Calculate a time series of unit-wide probability following exposure
 #'
-#'
+#' To calculate the probability that any asymptomatic person has COVID-19,
+#' this function treats each person/exposure as independent events and
+#' calculates the probability time series using the individuals time series from
+#' `individual_probability()`.
 #'
 #' @param test_day Day of PCR test (days since exposure)
 #' @param pre0 Pre-test probability of person on day of exposure

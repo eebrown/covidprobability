@@ -28,9 +28,16 @@ approximates the incubation period for COVID-19. E.g. 0.5
 (see reference).}
 }
 \value{
-The probability of an event with the specified probability, after n
-repetitions
+A time series of probabilities
 }
 \description{
-Calculate a time series of probability for an individual following exposure
+The probability that an individual has COVID-19 will change over time as new
+information is gleaned. The initial probability is the pretest probability
+(pre0) associated with the nature of the interaction/exposure. This
+probability will decrease with each passing day that the individual does not
+develop symptoms. When a test is done, the probability is the posttest
+probability; this reduces the probability based on the test characteristics
+at the time of testing. Subsequently, the probability will continue to
+decrease with each passing day that no symptoms develop. This function
+returns a time series including those 3 phases.
 }

@@ -34,5 +34,8 @@ The probability of an event with the specified probability, after n
 repetitions
 }
 \description{
-Calculate a time series of unit-wide probability following exposure
+To calculate the probability that any asymptomatic person has COVID-19,
+this function treats each person/exposure as independent events and
+calculates the probability time series using the individuals time series from
+\code{individual_probability()}.
 }
