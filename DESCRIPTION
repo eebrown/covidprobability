@@ -16,8 +16,8 @@ Description: We propose a method to estimate the probability of an
     people have been exposed, with a given pretest probability of having 
     COVID-19 as a result of that exposure. Since we are interested in undetected
     COVID-19, we assume no person has developed symptoms (which would warrant 
-    further investigation) and that everyone was tested with polymerase chain 
-    reaction (PCR) on a given day, and all tested negative.
+    further investigation) and that everyone was tested on a given day, and all 
+    tested negative.
 URL: https://github.com/eebrown/covidprobability
 BugReports: https://github.com/eebrown/covidprobability/issues
 License: GPL-3
