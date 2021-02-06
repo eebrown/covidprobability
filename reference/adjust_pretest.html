@@ -103,7 +103,12 @@ periods (defined as the time from exposure to symptom onset)." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/eebrown/covidprobability/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -118,7 +123,7 @@ periods (defined as the time from exposure to symptom onset)." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Calculate pretest probability change over time</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/eebrown/covidprobability/blob/master/R/functions.R'><code>R/functions.R</code></a></small>
     <div class="hidden name"><code>adjust_pretest.Rd</code></div>
     </div>
 
@@ -128,7 +133,7 @@ not develop symptoms, by taking into account the distribution of incubation
 periods (defined as the time from exposure to symptom onset).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>adjust_pretest</span><span class='op'>(</span><span class='va'>pre0</span>, <span class='va'>asympt</span>, days <span class='op'>=</span> <span class='fl'>0</span><span class='op'>:</span><span class='fl'>14</span>, mu <span class='op'>=</span> <span class='fl'>1.63</span>, sigma <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>adjust_pretest</span><span class='op'>(</span><span class='va'>pre0</span>, <span class='va'>asympt</span>, days <span class='op'>=</span> <span class='fl'>14</span>, mu <span class='op'>=</span> <span class='fl'>1.63</span>, sigma <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -144,7 +149,7 @@ to ever develop symptoms (true asymptomatic patients).</p></td>
     </tr>
     <tr>
       <th>days</th>
-      <td><p>The range of days (e.g. 0:14)</p></td>
+      <td><p>Days since exposure for calculation range</p></td>
     </tr>
     <tr>
       <th>mu</th>
