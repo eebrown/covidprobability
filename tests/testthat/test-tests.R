@@ -101,7 +101,7 @@ expect_equal(probability_any(4, 1/4), 1/4+3/16+9/64+27/256)
 test_that("individual_probability produces expected values", {
 
 test_day <- 9; pre0 <- 0.2; asympt <- 0.28; days <- 14; mu <- 1.63
-sigma <- 0.5; spec = 1
+sigma <- 0.5; spec <- 1
 
 i1 <- individual_probability(test_day, pre0, sens, spec, asympt, days, mu,
                              sigma)
@@ -153,7 +153,7 @@ expect_error(individual_probability(7, pre0, sens, spec, asympt, 22, mu,
 test_that("unit_probability produces expected values", {
 
   test_day <- 9; pre0 <- 0.2; asympt <- 0.28; days <- 14; mu <- 1.63
-  sigma <- 0.5; spec = 1; n = 2
+  sigma <- 0.5; spec <- 1; n <- 2
 
   i1 <- individual_probability(test_day, pre0, sens, spec, asympt, days, mu,
                                sigma)
