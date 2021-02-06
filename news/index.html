@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate a time series of unit-wide probability following exposure — unit_probability • covidprobability</title>
+<title>Changelog • covidprobability</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,7 @@
 
 
 
-<meta property="og:title" content="Calculate a time series of unit-wide probability following exposure — unit_probability" />
-<meta property="og:description" content="To calculate the probability that any asymptomatic person has COVID-19,
-this function treats each person/exposure as independent events and
-calculates the probability time series using the individuals time series from
-individual_probability()." />
+<meta property="og:title" content="Changelog" />
 
 
 
@@ -62,7 +58,7 @@ individual_probability()." />
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -126,76 +122,23 @@ individual_probability()." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate a time series of unit-wide probability following exposure</h1>
-    <small class="dont-index">Source: <a href='https://github.com/eebrown/covidprobability/blob/master/R/functions.R'><code>R/functions.R</code></a></small>
-    <div class="hidden name"><code>unit_probability.Rd</code></div>
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/eebrown/covidprobability/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="ref-description">
-    <p>To calculate the probability that any asymptomatic person has COVID-19,
-this function treats each person/exposure as independent events and
-calculates the probability time series using the individuals time series from
-<code><a href='individual_probability.html'>individual_probability()</a></code>.</p>
-    </div>
-
-    <pre class="usage"><span class='fu'>unit_probability</span><span class='op'>(</span><span class='va'>test_day</span>, <span class='va'>pre0</span>, <span class='va'>sens</span>, <span class='va'>spec</span>, <span class='va'>asympt</span>, <span class='va'>days</span>, <span class='va'>mu</span>, <span class='va'>sigma</span>, <span class='va'>n</span><span class='op'>)</span></pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>test_day</th>
-      <td><p>Day of PCR test (days since exposure)</p></td>
-    </tr>
-    <tr>
-      <th>pre0</th>
-      <td><p>Pre-test probability of person on day of exposure</p></td>
-    </tr>
-    <tr>
-      <th>sens</th>
-      <td><p>A vector of sensitivities by day since exposure</p></td>
-    </tr>
-    <tr>
-      <th>spec</th>
-      <td><p>The specificity of the PCR test</p></td>
-    </tr>
-    <tr>
-      <th>asympt</th>
-      <td><p>The proportion of infected patients expected to remain
-asymptomatic throughout the course of infection</p></td>
-    </tr>
-    <tr>
-      <th>days</th>
-      <td><p>Days since exposure for calculation range</p></td>
-    </tr>
-    <tr>
-      <th>mu</th>
-      <td><p>The mean of a lognormal distribution that approximates the
-incubation period for COVID-19. E.g. 1.63 (see reference).</p></td>
-    </tr>
-    <tr>
-      <th>sigma</th>
-      <td><p>The standard deviation of a lognormal distribution that
-approximates the incubation period for COVID-19. E.g. 0.5
-(see reference).</p></td>
-    </tr>
-    <tr>
-      <th>n</th>
-      <td><p>Number of exposed individuals</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>The probability of an event with the specified probability, after n
-repetitions</p>
-
+    <div id="covidprobability-010" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.0">
+<a href="#covidprobability-010" class="anchor"></a>covidprobability 0.1.0</h1>
+<p>Initial beta release.</p>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
+
 </div>
 
 
