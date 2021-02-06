@@ -38,7 +38,7 @@ prop_remaining <- function(t, asympt, mu = 1.63, sigma = 0.5) {
 #' @param pre0 Initial pretest probability (on day of exposure)
 #' @param asympt The proportion of positive patients who would be expected not
 #'               to ever develop symptoms (true asymptomatic patients).
-#' @param days The range of days (e.g. 0:14)
+#' @param days Days since exposure for calculation range
 #' @param mu The mean of a lognormal distribution that approximates the
 #'           incubation period for COVID-19. E.g. 1.63 (see reference).
 #' @param sigma The standard deviation of a lognormal distribution that
@@ -49,9 +49,9 @@ prop_remaining <- function(t, asympt, mu = 1.63, sigma = 0.5) {
 #' @references See McAloon et al. <https://bmjopen.bmj.com/content/10/8/e039652>
 #' @export
 #'
-adjust_pretest <- function(pre0, asympt, days = 0:14,
+adjust_pretest <- function(pre0, asympt, days = 14,
                            mu = 1.63, sigma = 0.5) {
-  return(pre0 * sapply(days, prop_remaining, asympt, mu, sigma))
+  return(pre0 * sapply(1:days, prop_remaining, asympt, mu, sigma))
 }
 
 
@@ -89,7 +89,7 @@ calc_postest_prob <- function(pretest_prob, sens, spec) {
 #' @param pre0 The pretest probability on day 0 (at exposure)
 #' @param asympt The proportion of infected patients expected to remain
 #'               asymptomatic throughout the course of infection
-#' @param days The range of days (e.g. 0:14)
+#' @param days Days since exposure for calculation range
 #' @param mu The mean of a lognormal distribution that approximates the
 #'           incubation period for COVID-19. E.g. 1.63 (see reference).
 #' @param sigma The standard deviation of a lognormal distribution that
@@ -101,14 +101,17 @@ calc_postest_prob <- function(pretest_prob, sens, spec) {
 #' @return A vector of posttest probabilities
 #' @export
 #'
-posttest_series <- function(pre0, asympt, days = 0:14, mu = 1.63, sigma = 0.5,
+posttest_series <- function(pre0, asympt, days = 14, mu = 1.63, sigma = 0.5,
                             sens, spec) {
   pretest <- adjust_pretest(pre0 = pre0, asympt = asympt,
                             days = days, mu = mu, sigma = sigma)
 
-  posttest <- data.frame(x=days, y=rep(NA, length(days)))
+  posttest <- data.frame(x=1:days, y=rep(NA, days))
 
-  for (t in seq_along(days)) {
+  if (days > length(sens)) { stop("Insufficient sensitivity data for
+                                   specified days") }
+
+  for (t in 1:days) {
     posttest$y[t] <- calc_postest_prob(pretest[t], sens[t], spec)
   }
   return(posttest)
@@ -120,6 +123,11 @@ posttest_series <- function(pre0, asympt, days = 0:14, mu = 1.63, sigma = 0.5,
 #' For an event that occurs with probability p, this function returns
 #' the probability of an occurrence given n repetitions. p is numeric
 #' and can be a vector.
+#'
+#' The probability that any event p occurs with n repetitions is equal to the
+#' reciprocal of the probability that p never occurs. The probability that p
+#' never occurs with n repetitions is `(1 - p) ^ n`. Thus, the probability
+#' that any event p occurs after n repetitions is `1 - ( (1 - p) ^ n )`.
 #'
 #' @param n The number of times to repeat the event (independent)
 #' @param p The individual probability of the event happening
@@ -153,7 +161,7 @@ probability_any <- function(n, p) {
 #' @param spec The specificity of the PCR test
 #' @param asympt The proportion of infected patients expected to remain
 #'               asymptomatic throughout the course of infection
-#' @param days The range of days (e.g. 0:14)
+#' @param days Days since exposure for calculation range
 #' @param mu The mean of a lognormal distribution that approximates the
 #'           incubation period for COVID-19. E.g. 1.63 (see reference).
 #' @param sigma The standard deviation of a lognormal distribution that
@@ -177,15 +185,15 @@ individual_probability <- function(test_day, pre0, sens, spec,
   posttest_day_upper <- posttest_upper$y[test_day]
   posttest_day_lower <- posttest_lower$y[test_day]
 
-  after_series <- rep(posttest_day, utils::tail(days, 1)-test_day)
-  after_series_upper <- rep(posttest_day_upper, utils::tail(days, 1)-test_day)
-  after_series_lower <- rep(posttest_day_lower, utils::tail(days, 1)-test_day)
+  after_series <- rep(posttest_day, utils::tail(1:days, 1)-test_day)
+  after_series_upper <- rep(posttest_day_upper, utils::tail(1:days, 1)-test_day)
+  after_series_lower <- rep(posttest_day_lower, utils::tail(1:days, 1)-test_day)
 
-  additional_symptomatic <- c(sapply(days, prop_remaining, asympt, mu, sigma),
-                              NA) - c(NA, sapply(days, prop_remaining, asympt,
+  additional_symptomatic <- c(sapply(1:days, prop_remaining, asympt, mu, sigma),
+                              NA) - c(NA, sapply(1:days, prop_remaining, asympt,
                                                  mu, sigma))
   additional_symptomatic <-
-    additional_symptomatic[(test_day+1):utils::tail(days, 1)] * -1
+    additional_symptomatic[(test_day+1):utils::tail(1:days, 1)] * -1
 
   after_series <- after_series -
                    (after_series * cumsum(additional_symptomatic))
@@ -219,7 +227,7 @@ individual_probability <- function(test_day, pre0, sens, spec,
 #' @param spec The specificity of the PCR test
 #' @param asympt The proportion of infected patients expected to remain
 #'               asymptomatic throughout the course of infection
-#' @param days The range of days (e.g. 0:14)
+#' @param days Days since exposure for calculation range
 #' @param mu The mean of a lognormal distribution that approximates the
 #'           incubation period for COVID-19. E.g. 1.63 (see reference).
 #' @param sigma The standard deviation of a lognormal distribution that

@@ -13,7 +13,7 @@ A data frame with 21 rows and 3 variables:
 }
 }
 \source{
-\url{https://bmjopen.bmj.com/content/10/8/e039652}
+\url{https://github.com/HopkinsIDD/covidRTPCR}
 }
 \usage{
 sens

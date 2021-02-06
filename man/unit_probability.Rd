@@ -18,7 +18,7 @@ unit_probability(test_day, pre0, sens, spec, asympt, days, mu, sigma, n)
 \item{asympt}{The proportion of infected patients expected to remain
 asymptomatic throughout the course of infection}
 
-\item{days}{The range of days (e.g. 0:14)}
+\item{days}{Days since exposure for calculation range}
 
 \item{mu}{The mean of a lognormal distribution that approximates the
 incubation period for COVID-19. E.g. 1.63 (see reference).}

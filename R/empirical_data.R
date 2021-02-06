@@ -23,7 +23,7 @@
 #'   \item{lower}{lower 95% confidence interval of sensitivity}
 #'   \item{upper}{upper 95% confidence interval of sensitivity}
 #' }
-#' @source \url{https://bmjopen.bmj.com/content/10/8/e039652}
+#' @source \url{https://github.com/HopkinsIDD/covidRTPCR}
 "sens"
 
 

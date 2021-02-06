@@ -20,6 +20,12 @@ For an event that occurs with probability p, this function returns
 the probability of an occurrence given n repetitions. p is numeric
 and can be a vector.
 }
+\details{
+The probability that any event p occurs with n repetitions is equal to the
+reciprocal of the probability that p never occurs. The probability that p
+never occurs with n repetitions is \code{(1 - p) ^ n}. Thus, the probability
+that any event p occurs after n repetitions is \code{1 - ( (1 - p) ^ n )}.
+}
 \examples{
 probability_any(1, 0.5)
 probability_any(2, 0.5)

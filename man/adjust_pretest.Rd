@@ -4,7 +4,7 @@
 \alias{adjust_pretest}
 \title{Calculate pretest probability change over time}
 \usage{
-adjust_pretest(pre0, asympt, days = 0:14, mu = 1.63, sigma = 0.5)
+adjust_pretest(pre0, asympt, days = 14, mu = 1.63, sigma = 0.5)
 }
 \arguments{
 \item{pre0}{Initial pretest probability (on day of exposure)}
@@ -12,7 +12,7 @@ adjust_pretest(pre0, asympt, days = 0:14, mu = 1.63, sigma = 0.5)
 \item{asympt}{The proportion of positive patients who would be expected not
 to ever develop symptoms (true asymptomatic patients).}
 
-\item{days}{The range of days (e.g. 0:14)}
+\item{days}{Days since exposure for calculation range}
 
 \item{mu}{The mean of a lognormal distribution that approximates the
 incubation period for COVID-19. E.g. 1.63 (see reference).}

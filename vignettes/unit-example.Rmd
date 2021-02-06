@@ -83,7 +83,7 @@ With each passing day, if no one develops symptoms, even without testing, the pr
 
 ```{r, fig.width=8, fig.height=4}
 
-plot(0:14, adjust_pretest(pre0 = 0.13, asymp = 0.279, days = 0:14), 
+plot(0:14, c(0.13, adjust_pretest(pre0 = 0.13, asymp = 0.279, days = 14)), 
      ylab="pretest probability", xlab="Day", type = "b", ylim = c(0, 0.2))
 
 ```
@@ -130,7 +130,7 @@ lines(example_lower$x, example_lower$y,
       col="lightblue", type="l")
 lines(example_upper$x, example_upper$y, 
       col="lightblue", type="l")
-lines(0:14, adjust_pretest(0.13, asympt = 0.279), 
+lines(1:14, adjust_pretest(0.13, asympt = 0.279), 
       col="red", type="l")
 ```
 
@@ -166,7 +166,7 @@ In the above example, testing on day 9 yields the lowest overall posttest probab
 ```{r, fig.width=8, fig.height=4}
 
 test <- individual_probability(test_day = 9, pre0 = 0.13, sens = sens, spec = 1, 
-                               asymp = 0.279, days = 0:14, mu = 1.63, sigma = 0.5)
+                               asymp = 0.279, days = 14, mu = 1.63, sigma = 0.5)
 
 plot(1:14, test$point, type="l", ylim=c(0,0.3),
      main = "Individual probabiltiy of undetected COVID-19",
@@ -181,7 +181,8 @@ Now, using the above example, we assume there were 10 exposures and calculate th
 ```{r, fig.width=8, fig.height=4}
 
 test_n <- unit_probability(test_day = 9, pre0 =  0.13, sens = sens, spec = 1, 
-                           asympt = 0.279, days = 0:14, mu = 1.63, sigma = 0.5, n = 10)
+                           asympt = 0.279, days = 14, mu = 1.63, sigma = 0.5, 
+                           n = 10)
 
 plot(1:14, test_n$point, type="b", ylim=c(0,1),
      main = "Unit-wide probabiltiy of undetected COVID-19",
@@ -193,7 +194,7 @@ abline(v = 9)
 text(1:14, (test_n$point + 0.1), round(test_n$point, 2), cex = 1)
 ```
 
-In this example, testing on day 9 reveals a unit-wide posttest probability of 11% on day 9 and 10% when testing on day 9 and waiting until day 14. Using the lower 95% confidence interval for test sensitivity, a conservative approach, and testing on day 9, the unit-wide estimate is 16% on day 9 and 14% on day 14.
+In this example, testing on day 9 reveals a unit-wide posttest probability of 10% on day 9 and 9% when testing on day 9 and waiting until day 14. Using the lower 95% confidence interval for test sensitivity, a conservative approach, and testing on day 9, the unit-wide estimate is 14% on day 9 and 13% on day 14.
 
 ```{r}
 test_n$point[9]
