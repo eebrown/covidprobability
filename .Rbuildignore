@@ -9,3 +9,4 @@ notgit
 ^docs$
 ^pkgdown$
 ^\.github$
+^CRAN-RELEASE$

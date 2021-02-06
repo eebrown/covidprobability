@@ -44,7 +44,7 @@ upon for clinical decisions.
 library(covidprobability)
 
 test_n <- unit_probability(test_day = 9, pre0 =  0.13, sens = sens, spec = 1, 
-                           asympt = 0.279, days = 0:14, mu = 1.63, sigma = 0.5, 
+                           asympt = 0.279, days = 14, mu = 1.63, sigma = 0.5, 
                            n = 10)
 ```
 
