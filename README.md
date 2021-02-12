@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 <!-- badges: end -->
 
 This package provides the functions, data and documentation that support
@@ -22,6 +22,12 @@ An [interactive web app](http://covid.eebc.ca) of this calculator is
 available.
 
 ## Installation
+
+You can install the latest CRAN version of covidprobability from with:
+
+``` r
+install.packages("covidprobability")
+```
 
 You can install the latest version of covidprobability from
 [Github](https://github.com/eebrown/covidprobability) with:

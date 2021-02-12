@@ -31,5 +31,5 @@ symptoms yet. So if no one has developed symptoms, this proportion of people
 could still have undetected COVID-19.
 }
 \references{
-See McAloon et al. \url{https://bmjopen.bmj.com/content/10/8/e039652}
+See McAloon et al. \url{https://bmjopen.bmj.com/content/10/8/e039652/}
 }

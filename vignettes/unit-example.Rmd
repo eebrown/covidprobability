@@ -236,11 +236,11 @@ This R package and accompanying Shiny app are available to the public for review
 
 ## References
 
-Kucirka LM, Lauer SA, Laeyendecker O, Boon D, Lessler J. Variation in False-Negative Rate of Reverse Transcriptase Polymerase Chain Reaction–Based SARS-CoV-2 Tests by Time Since Exposure. Annals of Internal Medicine. 2020;173(4):262-267. <http://dx.doi.org/10.7326/M20-1495>
+Kucirka LM, Lauer SA, Laeyendecker O, Boon D, Lessler J. Variation in False-Negative Rate of Reverse Transcriptase Polymerase Chain Reaction–Based SARS-CoV-2 Tests by Time Since Exposure. Annals of Internal Medicine. 2020;173(4):262-267. <https://dx.doi.org/10.7326/M20-1495>
 
-A. Lauer S, H. Grantz K, Bi Q, et al. The Incubation Period of Coronavirus Disease 2019 (COVID-19) From Publicly Reported Confirmed Cases: Estimation and Application. Annals of Internal Medicine. Published online March 10, 2020. <http://dx.doi.org/10.7326/M20-0504>
+A. Lauer S, H. Grantz K, Bi Q, et al. The Incubation Period of Coronavirus Disease 2019 (COVID-19) From Publicly Reported Confirmed Cases: Estimation and Application. Annals of Internal Medicine. Published online March 10, 2020. <https://dx.doi.org/10.7326/M20-0504>
 
-McAloon C, Collins Á, Hunt K, et al. Incubation period of COVID-19: a rapid systematic review and meta-analysis of observational research. BMJ Open. 2020;10(8):e039652. <http://dx.doi.org/10.1136/bmjopen-2020-039652>
+McAloon C, Collins Á, Hunt K, et al. Incubation period of COVID-19: a rapid systematic review and meta-analysis of observational research. BMJ Open. 2020;10(8):e039652. <https://dx.doi.org/10.1136/bmjopen-2020-039652>
 
-Yanes-Lane M, Winters N, Fregonese F, et al. Proportion of asymptomatic infection among COVID-19 positive persons and their transmission potential: A systematic review and meta-analysis. PLOS ONE. 2020;15(11):e0241536. <http://dx.doi.org/10.1371/journal.pone.0241536>
+Yanes-Lane M, Winters N, Fregonese F, et al. Proportion of asymptomatic infection among COVID-19 positive persons and their transmission potential: A systematic review and meta-analysis. PLOS ONE. 2020;15(11):e0241536. <https://dx.doi.org/10.1371/journal.pone.0241536>
 

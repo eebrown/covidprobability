@@ -30,5 +30,5 @@ not develop symptoms, by taking into account the distribution of incubation
 periods (defined as the time from exposure to symptom onset).
 }
 \references{
-See McAloon et al. \url{https://bmjopen.bmj.com/content/10/8/e039652}
+See McAloon et al. \url{https://bmjopen.bmj.com/content/10/8/e039652/}
 }

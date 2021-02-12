@@ -18,7 +18,7 @@
 #'              (see reference).
 #'
 #' @return Proportion who would not be expected to show symptoms yet
-#' @references See McAloon et al. <https://bmjopen.bmj.com/content/10/8/e039652>
+#' @references See McAloon et al. <https://bmjopen.bmj.com/content/10/8/e039652/>
 #' @export
 #'
 prop_remaining <- function(t, asympt, mu = 1.63, sigma = 0.5) {
@@ -46,7 +46,7 @@ prop_remaining <- function(t, asympt, mu = 1.63, sigma = 0.5) {
 #'              (see reference).
 #'
 #' @return pretest probability by day (time series)
-#' @references See McAloon et al. <https://bmjopen.bmj.com/content/10/8/e039652>
+#' @references See McAloon et al. <https://bmjopen.bmj.com/content/10/8/e039652/>
 #' @export
 #'
 adjust_pretest <- function(pre0, asympt, days = 14,
